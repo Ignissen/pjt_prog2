@@ -1,0 +1,6 @@
+
+
+class Penguin extends Bird
+{
+    
+}
