@@ -27,8 +27,7 @@ public:
     {
         cout << "Child" <<endl;
     }
-    template<class T, class U>
-    T add(T a, U b)
+    int add(int a, int b)
     {
         return a + b;
     }
