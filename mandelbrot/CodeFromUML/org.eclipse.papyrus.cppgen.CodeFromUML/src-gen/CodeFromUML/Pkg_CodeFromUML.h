@@ -1,5 +1,5 @@
-#ifndef PKG_ASD
-#define PKG_ASD
+#ifndef PKG_CODEFROMUML
+#define PKG_CODEFROMUML
 
 /************************************************************
  Pkg_asd package header
