@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sid-38422fae-e03e-43a3-bef4-bd33b32041b2" targetNamespace="http://bpmn.io/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="5.0.4">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="StartEvent_0eiy1lp" name="A programozási könyv feladatainak megoldása">
+      <outgoing>SequenceFlow_0qafosg</outgoing>
+    </startEvent>
+    <intermediateThrowEvent id="IntermediateThrowEvent_1girjre" name="Feladatok végigolvasása">
+      <incoming>SequenceFlow_0qafosg</incoming>
+      <outgoing>SequenceFlow_1f7bdm8</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_0qafosg" sourceRef="StartEvent_0eiy1lp" targetRef="IntermediateThrowEvent_1girjre" />
+    <exclusiveGateway id="ExclusiveGateway_115yjec" name="Értem a feladatot?">
+      <incoming>SequenceFlow_1f7bdm8</incoming>
+      <incoming>SequenceFlow_0qt34op</incoming>
+      <outgoing>SequenceFlow_1jld9jt</outgoing>
+      <outgoing>SequenceFlow_14n9x7h</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_1f7bdm8" sourceRef="IntermediateThrowEvent_1girjre" targetRef="ExclusiveGateway_115yjec" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_0t1vl5w" name="A feladat megoldásához szükséges programok megkeresése">
+      <incoming>SequenceFlow_1jld9jt</incoming>
+      <outgoing>SequenceFlow_1fa8ie0</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_1jld9jt" name="Igen" sourceRef="ExclusiveGateway_115yjec" targetRef="IntermediateThrowEvent_0t1vl5w" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_0f5i1u6" name="Témakör megismerése különböző forrásokból">
+      <incoming>SequenceFlow_14n9x7h</incoming>
+      <outgoing>SequenceFlow_0qt34op</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_14n9x7h" name="Nem" sourceRef="ExclusiveGateway_115yjec" targetRef="IntermediateThrowEvent_0f5i1u6" />
+    <sequenceFlow id="SequenceFlow_0qt34op" sourceRef="IntermediateThrowEvent_0f5i1u6" targetRef="ExclusiveGateway_115yjec" />
+    <exclusiveGateway id="ExclusiveGateway_0u4u0pr" name="Rendelkezésre áll az összes program?">
+      <incoming>SequenceFlow_1fa8ie0</incoming>
+      <outgoing>SequenceFlow_1op8dy2</outgoing>
+      <outgoing>SequenceFlow_1dnvoes</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_1fa8ie0" sourceRef="IntermediateThrowEvent_0t1vl5w" targetRef="ExclusiveGateway_0u4u0pr" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_0i3gk9q">
+      <incoming>SequenceFlow_1op8dy2</incoming>
+      <outgoing>SequenceFlow_0cnhlaa</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_1op8dy2" name="Igen" sourceRef="ExclusiveGateway_0u4u0pr" targetRef="IntermediateThrowEvent_0i3gk9q" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_0od6776" name="Szükséges programok beszerzése">
+      <incoming>SequenceFlow_1dnvoes</incoming>
+      <outgoing>SequenceFlow_1t6s3tn</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_1dnvoes" name="Nem" sourceRef="ExclusiveGateway_0u4u0pr" targetRef="IntermediateThrowEvent_0od6776" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_1ji3jlp" name="Feladat megoldásának elkezdése">
+      <incoming>SequenceFlow_0cnhlaa</incoming>
+      <incoming>SequenceFlow_1t6s3tn</incoming>
+      <outgoing>SequenceFlow_0b6n8fr</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_0cnhlaa" sourceRef="IntermediateThrowEvent_0i3gk9q" targetRef="IntermediateThrowEvent_1ji3jlp" />
+    <sequenceFlow id="SequenceFlow_1t6s3tn" sourceRef="IntermediateThrowEvent_0od6776" targetRef="IntermediateThrowEvent_1ji3jlp" />
+    <exclusiveGateway id="ExclusiveGateway_1gvlr54" name="Merül fel probléma?">
+      <incoming>SequenceFlow_1fusty7</incoming>
+      <outgoing>SequenceFlow_0yyi2f1</outgoing>
+      <outgoing>SequenceFlow_0oyflc3</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_0b6n8fr" sourceRef="IntermediateThrowEvent_1ji3jlp" targetRef="IntermediateThrowEvent_0errigq" />
+    <intermediateThrowEvent id="IntermediateThrowEvent_1mdidrd" name="Különböző forrásokból megoldás keresése a problémára">
+      <incoming>SequenceFlow_0oyflc3</incoming>
+      <incoming>SequenceFlow_053rimo</incoming>
+      <outgoing>SequenceFlow_03ndyuw</outgoing>
+    </intermediateThrowEvent>
+    <intermediateThrowEvent id="IntermediateThrowEvent_0761cp9" name="Ilyen opció nincs">
+      <incoming>SequenceFlow_0yyi2f1</incoming>
+    </intermediateThrowEvent>
+    <intermediateThrowEvent id="IntermediateThrowEvent_0errigq" name="Feladat megoldása">
+      <incoming>SequenceFlow_0b6n8fr</incoming>
+      <incoming>SequenceFlow_0izcvk7</incoming>
+      <outgoing>SequenceFlow_1fusty7</outgoing>
+    </intermediateThrowEvent>
+    <sequenceFlow id="SequenceFlow_1fusty7" sourceRef="IntermediateThrowEvent_0errigq" targetRef="ExclusiveGateway_1gvlr54" />
+    <exclusiveGateway id="ExclusiveGateway_05vh2kw" name="Kész a feladat?">
+      <incoming>SequenceFlow_1yj5zh3</incoming>
+      <outgoing>SequenceFlow_0q47wj4</outgoing>
+      <outgoing>SequenceFlow_0izcvk7</outgoing>
+    </exclusiveGateway>
+    <endEvent id="EndEvent_1703irp" name="Feladat megoldva">
+      <incoming>SequenceFlow_0q47wj4</incoming>
+    </endEvent>
+    <sequenceFlow id="SequenceFlow_0q47wj4" name="Igen" sourceRef="ExclusiveGateway_05vh2kw" targetRef="EndEvent_1703irp" />
+    <sequenceFlow id="SequenceFlow_0yyi2f1" name="Nem" sourceRef="ExclusiveGateway_1gvlr54" targetRef="IntermediateThrowEvent_0761cp9" />
+    <sequenceFlow id="SequenceFlow_0oyflc3" name="Igen" sourceRef="ExclusiveGateway_1gvlr54" targetRef="IntermediateThrowEvent_1mdidrd" />
+    <sequenceFlow id="SequenceFlow_03ndyuw" sourceRef="IntermediateThrowEvent_1mdidrd" targetRef="ExclusiveGateway_05wnquj" />
+    <sequenceFlow id="SequenceFlow_0izcvk7" name="Nem" sourceRef="ExclusiveGateway_05vh2kw" targetRef="IntermediateThrowEvent_0errigq" />
+    <exclusiveGateway id="ExclusiveGateway_05wnquj" name="Sikerült megoldani?">
+      <incoming>SequenceFlow_03ndyuw</incoming>
+      <outgoing>SequenceFlow_1yj5zh3</outgoing>
+      <outgoing>SequenceFlow_053rimo</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_1yj5zh3" name="Igen" sourceRef="ExclusiveGateway_05wnquj" targetRef="ExclusiveGateway_05vh2kw" />
+    <sequenceFlow id="SequenceFlow_053rimo" name="Nem" sourceRef="ExclusiveGateway_05wnquj" targetRef="IntermediateThrowEvent_1mdidrd" />
+  </process>
+  <bpmndi:BPMNDiagram id="BpmnDiagram_1">
+    <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="StartEvent_0eiy1lp_di" bpmnElement="StartEvent_0eiy1lp">
+        <omgdc:Bounds x="182" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="161" y="215" width="78" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_1girjre_di" bpmnElement="IntermediateThrowEvent_1girjre">
+        <omgdc:Bounds x="292" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="275" y="215" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qafosg_di" bpmnElement="SequenceFlow_0qafosg">
+        <omgdi:waypoint x="218" y="190" />
+        <omgdi:waypoint x="292" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_115yjec_di" bpmnElement="ExclusiveGateway_115yjec" isMarkerVisible="true">
+        <omgdc:Bounds x="405" y="165" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="385" y="141" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1f7bdm8_di" bpmnElement="SequenceFlow_1f7bdm8">
+        <omgdi:waypoint x="328" y="190" />
+        <omgdi:waypoint x="405" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0t1vl5w_di" bpmnElement="IntermediateThrowEvent_0t1vl5w">
+        <omgdc:Bounds x="522" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="504" y="215" width="72" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1jld9jt_di" bpmnElement="SequenceFlow_1jld9jt">
+        <omgdi:waypoint x="455" y="190" />
+        <omgdi:waypoint x="522" y="190" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="473" y="198" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0f5i1u6_di" bpmnElement="IntermediateThrowEvent_0f5i1u6">
+        <omgdc:Bounds x="412" y="262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="397" y="305" width="67" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14n9x7h_di" bpmnElement="SequenceFlow_14n9x7h">
+        <omgdi:waypoint x="430" y="215" />
+        <omgdi:waypoint x="430" y="262" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="433" y="234" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qt34op_di" bpmnElement="SequenceFlow_0qt34op">
+        <omgdi:waypoint x="412" y="280" />
+        <omgdi:waypoint x="380" y="280" />
+        <omgdi:waypoint x="433" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0u4u0pr_di" bpmnElement="ExclusiveGateway_0u4u0pr" isMarkerVisible="true">
+        <omgdc:Bounds x="625" y="165" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="606" y="115" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fa8ie0_di" bpmnElement="SequenceFlow_1fa8ie0">
+        <omgdi:waypoint x="558" y="190" />
+        <omgdi:waypoint x="625" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0i3gk9q_di" bpmnElement="IntermediateThrowEvent_0i3gk9q">
+        <omgdc:Bounds x="752" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1op8dy2_di" bpmnElement="SequenceFlow_1op8dy2">
+        <omgdi:waypoint x="675" y="190" />
+        <omgdi:waypoint x="752" y="190" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="703" y="172" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0od6776_di" bpmnElement="IntermediateThrowEvent_0od6776">
+        <omgdc:Bounds x="632" y="262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="622" y="305" width="57" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1dnvoes_di" bpmnElement="SequenceFlow_1dnvoes">
+        <omgdi:waypoint x="650" y="215" />
+        <omgdi:waypoint x="650" y="262" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="653" y="234" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_1ji3jlp_di" bpmnElement="IntermediateThrowEvent_1ji3jlp">
+        <omgdc:Bounds x="842" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="824" y="215" width="73" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cnhlaa_di" bpmnElement="SequenceFlow_0cnhlaa">
+        <omgdi:waypoint x="788" y="190" />
+        <omgdi:waypoint x="842" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1t6s3tn_di" bpmnElement="SequenceFlow_1t6s3tn">
+        <omgdi:waypoint x="668" y="280" />
+        <omgdi:waypoint x="810" y="280" />
+        <omgdi:waypoint x="810" y="190" />
+        <omgdi:waypoint x="842" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1gvlr54_di" bpmnElement="ExclusiveGateway_1gvlr54" isMarkerVisible="true">
+        <omgdc:Bounds x="935" y="255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="873" y="266" width="52" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0b6n8fr_di" bpmnElement="SequenceFlow_0b6n8fr">
+        <omgdi:waypoint x="878" y="190" />
+        <omgdi:waypoint x="942" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_1mdidrd_di" bpmnElement="IntermediateThrowEvent_1mdidrd">
+        <omgdc:Bounds x="942" y="332" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="861" y="317" width="57" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0761cp9_di" bpmnElement="IntermediateThrowEvent_0761cp9">
+        <omgdc:Bounds x="1022" y="262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1000" y="305" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0errigq_di" bpmnElement="IntermediateThrowEvent_0errigq">
+        <omgdc:Bounds x="942" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="932.5" y="134" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fusty7_di" bpmnElement="SequenceFlow_1fusty7">
+        <omgdi:waypoint x="960" y="208" />
+        <omgdi:waypoint x="960" y="255" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_05vh2kw_di" bpmnElement="ExclusiveGateway_05vh2kw" isMarkerVisible="true">
+        <omgdc:Bounds x="935" y="455" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="849" y="473" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1703irp_di" bpmnElement="EndEvent_1703irp">
+        <omgdc:Bounds x="942" y="572" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="916" y="615" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0q47wj4_di" bpmnElement="SequenceFlow_0q47wj4">
+        <omgdi:waypoint x="960" y="505" />
+        <omgdi:waypoint x="960" y="572" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="969" y="513" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yyi2f1_di" bpmnElement="SequenceFlow_0yyi2f1">
+        <omgdi:waypoint x="985" y="280" />
+        <omgdi:waypoint x="1022" y="280" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="992" y="262" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0oyflc3_di" bpmnElement="SequenceFlow_0oyflc3">
+        <omgdi:waypoint x="960" y="305" />
+        <omgdi:waypoint x="960" y="332" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="964" y="314" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_03ndyuw_di" bpmnElement="SequenceFlow_03ndyuw">
+        <omgdi:waypoint x="960" y="368" />
+        <omgdi:waypoint x="960" y="385" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0izcvk7_di" bpmnElement="SequenceFlow_0izcvk7">
+        <omgdi:waypoint x="985" y="480" />
+        <omgdi:waypoint x="1090" y="480" />
+        <omgdi:waypoint x="1090" y="190" />
+        <omgdi:waypoint x="978" y="190" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1093" y="332" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_05wnquj_di" bpmnElement="ExclusiveGateway_05wnquj" isMarkerVisible="true">
+        <omgdc:Bounds x="935" y="385" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="852" y="400" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1yj5zh3_di" bpmnElement="SequenceFlow_1yj5zh3">
+        <omgdi:waypoint x="960" y="435" />
+        <omgdi:waypoint x="960" y="455" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="919" y="433" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_053rimo_di" bpmnElement="SequenceFlow_053rimo">
+        <omgdi:waypoint x="960" y="410" />
+        <omgdi:waypoint x="1050" y="410" />
+        <omgdi:waypoint x="1050" y="350" />
+        <omgdi:waypoint x="978" y="350" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1053" y="377" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
