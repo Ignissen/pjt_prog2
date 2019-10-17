@@ -51,7 +51,6 @@ std::vector<PaRaCube> cubeLetters;
 
 void drawPaRaCube ( int idx )
 {
-
         glPushMatrix();
 
         int d = cubeLetters.size() /2 ;
@@ -63,7 +62,6 @@ void drawPaRaCube ( int idx )
 
         glBegin ( GL_QUADS );
 
-        //glColor3f ( 0.818f, .900f, 0.824f );
         glColor3f ( 1.0f, 1.0f, 1.0f );
 
         glVertex3f ( -1.0f, 1.0f, 1.0f );
