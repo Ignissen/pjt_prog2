@@ -163,6 +163,31 @@ public:
 
   }
 
+  void gen_img( double image [], int s)
+  {
+    units[0] = image;
+    for ( int i {1}; i < n_layers; ++i )
+    {
+      #pragma omp parallel for
+      for ( int j = 0; j < n_units[i]; ++j )
+        {
+          units[i][j] = 0.0;
+
+          for ( int k = 0; k < n_units[i-1]; ++k )
+            {
+              units[i][j] += weights[i-1][j][k] * units[i-1][k];
+            }
+
+          units[i][j] = sigmoid ( units[i][j] );
+
+        }
+    }
+    for(int i = 0; i < s; i++)
+    {
+      image[i] = sigmoid ( units[n_layers - 1][i] );
+    }
+  }
+
   void learning ( double image [], double q, double prev_q )
   {
     double y[1] {q};
