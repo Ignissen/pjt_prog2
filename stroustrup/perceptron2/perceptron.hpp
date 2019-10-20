@@ -125,7 +125,11 @@ public:
   {
     return 1.0/ ( 1.0 + exp ( -x ) );
   }
-
+  //Inverse of the sigmoid function
+  double logit(double x)
+  {
+    return log(x / (1 - x));
+  }
 
   double operator() ( double image [] )
   {
