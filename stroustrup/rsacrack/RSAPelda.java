@@ -4,8 +4,14 @@ public class RSAPelda
 {
     public static void main(String[] args)
     {
-        KulcsPar jSzereplo = new KulcsPar();
-        String clean = "Szeretem a tejet";
+        //System.out.println(args.length);
+        if(args.length != 1)
+        {
+            System.out.println("Use: java RSAPelda <input string>");
+            return;
+        }
+        KulcsPar2 jSzereplo = new KulcsPar2();
+        String clean = args[0];
         byte[] buffer = clean.getBytes();
         java.math.BigInteger[] titkos = new java.math.BigInteger[buffer.length];
 

@@ -188,7 +188,7 @@ public:
     }
     for(int i = 0; i < s; i++)
     {
-      image[i] = sigmoid ( units[n_layers - 1][i] );
+      image[i] = units[n_layers - 1][i];
     }
   }
 

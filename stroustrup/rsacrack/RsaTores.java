@@ -14,7 +14,7 @@ class RsaTores {
 
             inputStream.close();
 
-            KulcsPar kp[] = new KulcsPar[100];
+            KulcsPar kp[] = new KulcsPar[1000];
 
             boolean volt = false;
             kp[0] = new KulcsPar(line[0]);

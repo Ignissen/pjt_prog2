@@ -21,9 +21,9 @@ int main(int argc, char* argv[])
     {
         std::cout << argv[i] << '\n';
     }*/
-    if(argc < 3)
+    if(argc < 2)
     {
-        std::cerr << "Use: ./perc path/to/png epochs [output filename]" << '\n';
+        std::cerr << "Use: ./perc path/to/png [output filename]" << '\n';
         return 1;
     }
     int epochs = atoi(argv[2]);
@@ -33,52 +33,27 @@ int main(int argc, char* argv[])
 	Perceptron* p1 = new Perceptron(3,s,256,s);
 
 	double* image_r = new double[s];
-    double* image_g = new double[s];
-    double* image_b = new double[s];
-
-    double* random_array = new double[s];
-
+    
+    #pragma omp parallel for
 	for(int i=0;i<png_img.get_height();i++)
 	{
 		for(int j=0;j<png_img.get_width();j++)
 		{
-			/*image_r[i*png_img.get_width()+j] = p1->sigmoid(png_img[j][i].red);
-            image_g[i*png_img.get_width()+j] = p1->sigmoid(png_img[j][i].green);
-            image_b[i*png_img.get_width()+j] = p1->sigmoid(png_img[j][i].blue);*/
-
-            image_r[i*png_img.get_width()+j] = png_img[j][i].red;
-            image_g[i*png_img.get_width()+j] = png_img[j][i].green;
-            image_b[i*png_img.get_width()+j] = png_img[j][i].blue;
+            image_r[i*png_img.get_width()+j] =  (png_img[i][j].red + png_img[i][j].green + png_img[i][j].blue) / 3;   
 		}
 	}
-    //p->learning(image_r, 1, 1);
-    //p->learning(image_g, 1, 1);
-    //p->learning(image_b, 1, 1);
-
-    for(int i = 0; i < epochs; i++)
-    {
-        std::cout << "Epoch " << i << " started." << '\n';
-        randomize(random_array, s);
-        p1->learning(image_r, random_array);
-        randomize(random_array, s);
-        p1->learning(image_g, random_array);
-        randomize(random_array, s);
-        p1->learning(image_b, random_array);
-        std::cout << "Epoch " << i << " finished." << '\n';
-    }
 
     p1->gen_img(image_r, s);
-    p1->gen_img(image_g, s);
-    p1->gen_img(image_b, s);
 
+    #pragma omp parallel for
 	for(int i=0;i<png_img.get_height();i++)
 	{
 		for(int j=0;j<png_img.get_width();j++)
 		{
-			png_img[i][j] = png::rgb_pixel(image_r[i*png_img.get_width()+j]*255,image_g[i*png_img.get_width()+j]*255,image_b[i*png_img.get_width()+j]*255);
+			png_img[i][j] = png::rgb_pixel(image_r[i*png_img.get_width()+j]*255,image_r[i*png_img.get_width()+j]*255, image_r[i*png_img.get_width()+j]*255);
 		}
 	}
-	if(argc == 4)
+	if(argc == 3)
     {
         png_img.write(argv[3]);
     }
@@ -86,12 +61,9 @@ int main(int argc, char* argv[])
     {
         png_img.write("generated.png");
     }
-    
+
+    delete p1;
 	delete [] image_r;
-    delete [] image_g;
-    delete [] image_b;
-	delete p1;
-    //delete p2;
-    //delete p3;
+
 	return 0;
 }
