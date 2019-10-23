@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     {
         std::cout << argv[i] << '\n';
     }*/
-    if(argc < 2)
+    if(argc < 3)
     {
         std::cerr << "Use: ./perc path/to/png [output filename]" << '\n';
         return 1;
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 			png_img[i][j] = png::rgb_pixel(image_r[i*png_img.get_width()+j]*255,image_r[i*png_img.get_width()+j]*255, image_r[i*png_img.get_width()+j]*255);
 		}
 	}
-	if(argc == 3)
+	if(argc == 4)
     {
         png_img.write(argv[3]);
     }
