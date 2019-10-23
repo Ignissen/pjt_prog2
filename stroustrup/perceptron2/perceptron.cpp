@@ -33,24 +33,29 @@ int main(int argc, char* argv[])
 	Perceptron* p1 = new Perceptron(3,s,256,s);
 
 	double* image_r = new double[s];
+    double* image_g = new double[s];
+    double* image_b = new double[s];
     
     #pragma omp parallel for
 	for(int i=0;i<png_img.get_height();i++)
 	{
 		for(int j=0;j<png_img.get_width();j++)
 		{
-            image_r[i*png_img.get_width()+j] =  (png_img[i][j].red + png_img[i][j].green + png_img[i][j].blue) / 3;   
+            image_r[i*png_img.get_width()+j] =  png_img[i][j].red;   
+            image_r[i*png_img.get_width()+j] =  png_img[i][j].green;   
+            image_r[i*png_img.get_width()+j] =  png_img[i][j].blue;   
 		}
 	}
 
-    p1->gen_img(image_r, s);
+    p1->gen_img(image_g, s);
+    p1->gen_img(image_b, s);
 
     #pragma omp parallel for
 	for(int i=0;i<png_img.get_height();i++)
 	{
 		for(int j=0;j<png_img.get_width();j++)
 		{
-			png_img[i][j] = png::rgb_pixel(image_r[i*png_img.get_width()+j]*255,image_r[i*png_img.get_width()+j]*255, image_r[i*png_img.get_width()+j]*255);
+			png_img[i][j] = png::rgb_pixel(image_r[i*png_img.get_width()+j]*255,image_g[i*png_img.get_width()+j]*255, image_b[i*png_img.get_width()+j]*255);
 		}
 	}
 	if(argc == 4)
