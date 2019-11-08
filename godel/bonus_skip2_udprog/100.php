@@ -108,7 +108,7 @@ function bubble(&$sort_by, &$other)
     </div>
     <h1 style="color: red; text-align: center;">Please leave this website via the Leállít button!</h1>
     <h1 style="color: red; text-align: center;">Kérem a Leállít gombot használva hagyja el az oldalt!</h1>
-    <h1 style="color: red; text-align: center;">Más esetben nem fogja jól menteni a dolgokat!</h1>
+    <h1 style="color: red; text-align: center;">Más esetben nem fogja jól menteni az adatokat!</h1>
     <script>
         var limit = 1000 * 60 * 60 * 100;
         var limit = 1000 * 60 * 60 * 100;
