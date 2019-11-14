@@ -6,7 +6,7 @@ public class BinFa {
 	
 	public BinFa()
 	{
-		this.root = this.fa = new Node();
+		this.root = this.tree_ptr = new Node();
 	}
 	
 	public int getDepth()
@@ -35,30 +35,50 @@ public class BinFa {
 		}
 		else
 		{
-			return max(getdepth(e.left), getdepth(e.right));
+			return max(getdepth(e.left), getdepth(e.right)) + 1;
 		}
 	}
 	
 	public double getAverage()
 	{
 		average = 0;
-		get_average(root);
+		num_of_leaf_elements = 0;
+		sum_of_depth = 0;
+		get_average(root,0);
 		average = sum_of_depth / num_of_leaf_elements;
-		return average;
+		return (float)sum_of_depth / num_of_leaf_elements;
 	}
 	
-	void
-	get_average (Node fa)
+	void Preorder()
+	{
+		preorder(root, 0);
+	}
+	
+	void preorder(Node e, int depth)
+	{
+		if(e != null)
+		{
+			for(int i = 0; i < depth; i++)
+			{
+				System.out.print("--");
+			}
+			System.out.println(e.c);
+			preorder(e.left, depth + 1);
+			preorder(e.right, depth + 1);
+		}
+	}
+	
+	void get_average (Node e, int depth)
 	{
 
-	  if (fa != null)
+	  if (e != null)
 	    {
-	      ++depth;
-	      get_average (fa.right);
-	      get_average (fa.left);
-	      --depth;
+	      //++depth;
+	      get_average (e.right, depth + 1);
+	      get_average (e.left, depth + 1);
+	      //--depth;
 
-	      if (fa.right == null && fa.left == null)
+	      if (e.right == null && e.left == null)
 		{
 
 		  ++num_of_leaf_elements;
@@ -70,62 +90,67 @@ public class BinFa {
 
 	}
 	
-	void getdeviation (Node fa)
-	{
-	
-		if (fa != null)
-		{
-			++depth;
-			getdeviation (fa.right);
-			getdeviation (fa.left);
-			--depth;
-			
-			if (fa.right == null && fa.left == null)
-			{
-				++num_of_leaf_elements;
-				deviation += ((depth - average) * (depth - average));
-			}
-		
-		}
-	
-	}
 	
 	public double getDeviation()
 	{
-		deviation = 0;
-		average = getAverage();
-		getdeviation(this.root);
-		return deviation;
-	}
+        average = getAverage();
+        
+        deviation = 0.0;
+        num_of_leaf_elements = depth = 0;
+        
+        getdeviation(root);
+        
+        if(num_of_leaf_elements-1 > 0)
+        	deviation = Math.sqrt(deviation/(num_of_leaf_elements-1));
+        else
+        	deviation = Math.sqrt(deviation);
+            
+        return deviation;
+    }
+    
+    private void getdeviation(Node rhs){
+       if(rhs != null){ 
+        ++depth;
+        getdeviation(rhs.left);
+        getdeviation(rhs.right);
+        --depth;
+
+             
+        if(rhs.left == null && rhs.right == null)
+        {
+        	num_of_leaf_elements ++;
+            deviation += Math.pow((depth-average), 2);
+        }
+       }
+    }	
 	
 	public void add(char c)
 	{
-		if(fa.left != null)
+		if(c == '0')
 		{
-			if(fa.c == '0')
+			if(tree_ptr.left != null)
 			{
-				fa = fa.left;
+				tree_ptr = tree_ptr.left;
 			}
 			else
 			{
-				fa.left = new Node('0');
-				fa = root;
+				tree_ptr.left = new Node('0');
+				tree_ptr = root;
 			}
 		}
-		else if(fa.right != null)
+		else if(c == '1')
 		{
-			if(fa.c == '1')
+			if(tree_ptr.right != null)
 			{
-				fa = fa.right;
+				tree_ptr = tree_ptr.right;
 			}
 			else
 			{
-				fa.right = new Node('1');
-				fa = root;
+				tree_ptr.right = new Node('1');
+				tree_ptr = root;
 			}
 		}
 	}
-	
 //fields and others
 	
 	class Node{
@@ -149,7 +174,7 @@ public class BinFa {
 	}
 	
 	Node root;
-	public Node fa;
+	Node tree_ptr;
 	
 	int sum_of_depth = 0;
 	int depth = 0;
