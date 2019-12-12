@@ -1,7 +1,8 @@
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+#import matplotlib.pyplot as plt
+#import matplotlib.image as mpimg
 import numpy as np
+import PIL
 from PIL import Image
 import os
 import sys
@@ -50,8 +51,9 @@ else:
 model.evaluate(x_test, y_test)
 
 image_index = 4444
+image_file_name = "5_handdrawn.png"
 image_to_predict = x_test[image_index]
-image_to_predict = Image.open("5_handdrawn.png").convert("L")
+image_to_predict = Image.open(image_file_name).convert("L")
 image_to_predict = np.resize(image_to_predict, (28,28,1))
 image_to_predict = np.array(image_to_predict)
 image_to_predict = image_to_predict.reshape(1,28,28,1)
@@ -60,9 +62,13 @@ correct_answer = 5
 
 pred = model.predict(image_to_predict)
 
-print(pred.argmax())
-print(correct_answer)
+print("Modell által 'gondolt': " + str(pred.argmax()))
+print("Helyes válasz: " + str(correct_answer))
 
-imgplot = plt.imshow(image_to_predict.reshape(28, 28),cmap='Greys')
-plt.show()
+size = (512, 512)
+img = Image.open(image_file_name).resize(size, Image.AFFINE)
+#img.resize(size, Image.ANTIALIAS)
+img.show()
+#imgplot = plt.imshow(image_to_predict.reshape(28, 28),cmap='Greys')
+#plt.show()
 model.save("model.h5")
